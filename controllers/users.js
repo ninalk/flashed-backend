@@ -79,12 +79,57 @@ async function signup(req, res) {
 }
 
 async function login(req, res) {
-    try {
-        const user = await User.findOne({email: req.body.email});
-        console.log(user, ' this user in login')
-        if (!user) return res.status(401).json({err: 'bad credentials'});
+    let {username, password} = req.body;
+    username = username.trim();
+    password = password.trim();
 
-    } catch(err) {
-        return res.status(401).json(err);
+    if (username == "" || password == "") {
+        res.json({
+            status: "FAILED",
+            message: "Empty credentials supplied"
+        });
+    } else {
+        // check if user exists
+        await User.find({username})
+        .then(data => {
+            console.log(data)
+            if (data.length) {
+                // user match
+                const hashedPassword = data[0].password;
+                bcrypt.compare(password, hashedPassword).then(result => {
+                    if (result) {
+                        res.json({
+                            status: "SUCCESS",
+                            message: "Login successful",
+                            data: data
+                        });
+                    } else {
+                        res.json({
+                            status: "FAILED",
+                            message: "Invalid password entered"
+                        })
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.json({
+                        status: "FAILED",
+                        message: "An error occured while comparing password"
+                    })
+                })
+            } else {
+                res.json({
+                    status: "FAILED",
+                    message: "Invalid credentials entered!"
+                })
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.json({
+                status: "FAILED",
+                message: "An error occured while checking for existing user"
+            })
+        })
     }
 }
