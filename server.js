@@ -1,11 +1,13 @@
 const express = require('express');
 const logger = require('morgan');
+const cors = require('cors');
 
 // mongodb
 require('./config/database');
 
 const app = express();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json()); // body parser
 
