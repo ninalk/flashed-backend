@@ -31,7 +31,7 @@ async function signup(req, res) {
     } else if (password.length < 8) {
         res.json({
             status: "FAILED",
-            message: "Invalid email entered"
+            message: "Password is too short"
         })
     } else {
         await User.find({email}).then(result => {
