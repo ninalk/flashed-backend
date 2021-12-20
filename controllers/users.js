@@ -79,6 +79,7 @@ async function signup(req, res) {
 }
 
 async function login(req, res) {
+    console.log(req.body)
     let {username, password} = req.body;
     username = username.trim();
     password = password.trim();
@@ -90,7 +91,7 @@ async function login(req, res) {
         });
     } else {
         // check if user exists
-        await User.find({username})
+        User.find({username})
         .then(data => {
             console.log(data)
             if (data.length) {
