@@ -7,9 +7,9 @@ require('./config/database');
 
 const app = express();
 
-app.use(cors());
 app.use(logger('dev'));
 app.use(express.json()); // body parser
+app.use(cors());
 
 // api routes must be before the "catch all" route
 app.use('/users', require('./routes/api/users'));
