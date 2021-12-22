@@ -11,9 +11,13 @@ app.use(logger('dev'));
 app.use(express.json()); // body parser
 app.use(cors());
 
+// configure auth middleware
+// this decodes the jwt token and assigns the user information to req.user
+app.use(require('./config/auth'));
+
 // api routes must be before the "catch all" route
 app.use('/users', require('./routes/api/users'));
-app.use('/cards', require('./routes/api/cards'));
+app.use('/categories', require('./routes/api/categories'));
 
 const port = process.env.PORT || 3000;
 
