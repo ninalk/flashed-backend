@@ -2,7 +2,8 @@ const Category = require('../models/category');
 
 module.exports = {
     create,
-    index
+    index,
+    show
 }
 
 async function index(req, res) {
@@ -45,5 +46,20 @@ async function create(req, res) {
             status: "FAILED",
             message: "An error occured while creating category"
         });
+    }
+}
+
+async function show(req, res) {
+    try {
+        const category = await Category.findById(req.params.id);
+
+        res.status(200).json({
+            status: "SUCCESS",
+            message: "Found category",
+            data: category
+        });
+    } catch (err) {
+        console.log(err);
+        res.send({err});
     }
 }
