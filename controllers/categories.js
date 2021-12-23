@@ -8,6 +8,7 @@ module.exports = {
 async function index(req, res) {
     try {
         const categories = await Category.find({}).populate('user').exec();
+        console.log(categories, ' in index')
         res.status(200).json({
             status: "SUCCESS",
             message: "Found categories",
@@ -23,19 +24,20 @@ async function index(req, res) {
 }
 
 async function create(req, res) {
-    console.log(req.body)
     try {   
-        const category = await Category.create({
+        const newCategory = await Category.create({
             category: req.body.category,
-            user: req.user
+            user: req.body.user
         });
-
-        // const populatedCategory = await category.populate('user').execPopulate();
+        console.log(newCategory, ' newCategory')
+        // We have to populate the user on the category we just created
+        // on a document you have to call execPopulate()
+        const populatedCategory = await newCategory.populate('user').execPopulate();
 
         res.status(201).json({
             status: "SUCCESS",
             message: "Create new category successful",
-            category: category
+            category: populatedCategory
         })
     } catch (err) {
         console.log(err);
