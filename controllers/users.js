@@ -8,7 +8,7 @@ module.exports = {
 
 
 async function signup(req, res) {
-    let {username, email, password} = req.body;
+    let {username, email, password } = req.body;
     username = username.trim();
     email = email.trim();
     password = password.trim();

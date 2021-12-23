@@ -11,16 +11,6 @@ app.use(logger('dev'));
 app.use(express.json()); // body parser
 app.use(cors());
 
-// configure auth middleware
-// this decodes the jwt token and assigns the user information to req.user
-app.use(require('./config/auth'));
-
-app.use((req, res, next) => {
-    res.locals.user = req.user;
-
-    next();
-});
-
 // api routes must be before the "catch all" route
 app.use('/users', require('./routes/api/users'));
 app.use('/categories', require('./routes/api/categories'));

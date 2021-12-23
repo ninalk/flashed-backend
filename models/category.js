@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 
 const cardSchema = mongoose.Schema({
+    categoryId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category'
+    },
     question: String,
     answer: String
 }, {
