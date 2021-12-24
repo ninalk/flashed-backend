@@ -4,7 +4,8 @@ const User = require('../models/user');
 module.exports = {
     create,
     index,
-    show
+    show,
+    deleteCategory
 }
 
 async function index(req, res) {
@@ -60,6 +61,19 @@ async function show(req, res) {
         });
     } catch (err) {
         console.log(err);
+        res.send({err});
+    }
+}
+
+async function deleteCategory(req, res) {
+    try {
+        await Category.findByIdAndDelete(req.params.id);
+        res.json({
+            status: "SUCCESS",
+            message: "Category deleted"
+        });
+    } catch (err) {
+        console.log(err)
         res.send({err});
     }
 }

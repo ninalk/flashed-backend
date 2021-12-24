@@ -2,9 +2,12 @@ const Category = require('../models/category');
 
 module.exports = {
     create,
+    // deleteCard,
+    // update
 }
 
 async function create(req, res){
+    console.log(req.body, ' card create')
     try {
         const category = await Category.findById(req.params.id);
         category.cards.push({
