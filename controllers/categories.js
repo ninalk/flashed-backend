@@ -1,4 +1,5 @@
 const Category = require('../models/category');
+const User = require('../models/user');
 
 module.exports = {
     create,
