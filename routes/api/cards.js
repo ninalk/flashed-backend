@@ -6,7 +6,7 @@ const cardsCtrl = require('../../controllers/cards')
 router.post('/categories/:id/cards', cardsCtrl.create)
 
 /*---------- Protected Routes ----------*/
-router.put('/:id', cardsCtrl.update);
+router.put('/cards/:id', cardsCtrl.update);
 // router.delete('/:id', cardsCtrl.deleteCard);
 
 
